@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 500" width="950" height="500">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .box { rx: 8; ry: 8; stroke-width: 2; }
+      .text-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: bold; fill: #f8fafc; }
+      .text-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .text-block-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; font-weight: 600; fill: #f1f5f9; }
+      .text-block-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #cbd5e1; }
+      .text-metric { font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; fill: #38bdf8; }
+      .line { stroke: #64748b; stroke-width: 2; fill: none; }
+      .line-accent { stroke: #38bdf8; stroke-width: 2.5; fill: none; }
+      .arrow { fill: #38bdf8; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" class="arrow" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="950" height="500" rx="12" />
+
+  <!-- Title & Header -->
+  <text x="40" y="45" class="text-title">Single-Lead ECG Shield — Hardware Architecture</text>
+  <text x="40" y="70" class="text-sub">Analog Devices AD8232 Heart Rate Front End with Multi-Stage Active Filtering &amp; Patient Safety Isolation</text>
+
+  <!-- Safety Isolation Barrier Line -->
+  <rect x="235" y="90" width="8" height="370" rx="4" fill="#ef4444" opacity="0.3"/>
+  <line x1="239" y1="90" x2="239" y2="460" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="248" y="105" font-family="'Segoe UI', sans-serif" font-size="11px" font-weight="bold" fill="#ef4444">ISOLATION BARRIER (4mm Creepage / IEC 60601-1)</text>
+
+  <!-- Block 1: Patient Electrodes -->
+  <rect x="40" y="140" width="170" height="200" fill="#1e293b" stroke="#3b82f6" class="box" />
+  <text x="55" y="170" class="text-block-title">Skin Electrodes</text>
+  <text x="55" y="190" class="text-block-desc">• LA (Left Arm / +IN)</text>
+  <text x="55" y="210" class="text-block-desc">• RA (Right Arm / -IN)</text>
+  <text x="55" y="230" class="text-block-desc">• RL (Right Leg / RLD)</text>
+  <rect x="55" y="250" width="140" height="70" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1"/>
+  <text x="65" y="270" class="text-metric">180kΩ Series R</text>
+  <text x="65" y="290" class="text-metric">BAV199 Low-Leak TVS</text>
+  <text x="65" y="310" class="text-metric">470pF RF Suppress</text>
+
+  <!-- Connection to AD8232 -->
+  <line x1="210" y1="200" x2="280" y2="200" class="line-accent" marker-end="url(#arrow)"/>
+  <line x1="280" y1="280" x2="210" y2="280" class="line-accent" marker-end="url(#arrow)"/>
+  <text x="218" y="190" class="text-metric">0.5-2mV</text>
+  <text x="225" y="300" class="text-metric">RLD</text>
+
+  <!-- Block 2: AD8232 Core AFE -->
+  <rect x="280" y="120" width="220" height="240" fill="#1e293b" stroke="#06b6d4" class="box" />
+  <text x="300" y="150" class="text-block-title">AD8232 Front End</text>
+  <text x="300" y="170" class="text-block-desc">Instrumentation Amp (Gain: 100x)</text>
+  <text x="300" y="188" class="text-metric">CMRR: > 80 dB @ 60Hz</text>
+
+  <rect x="295" y="200" width="190" height="65" rx="4" fill="#0f172a" stroke="#0891b2" stroke-width="1"/>
+  <text x="305" y="220" class="text-block-title" font-size="12px">Two-Pole HPF (0.05 - 0.5Hz)</text>
+  <text x="305" y="238" class="text-metric">C_HP1=0.33µF, R_HP1=10MΩ</text>
+  <text x="305" y="255" class="text-metric">Rejects ±300mV Half-Cell DC</text>
+
+  <rect x="295" y="275" width="190" height="65" rx="4" fill="#0f172a" stroke="#0891b2" stroke-width="1"/>
+  <text x="305" y="295" class="text-block-title" font-size="12px">Right Leg Drive (RLD)</text>
+  <text x="305" y="313" class="text-metric">1MΩ || 1.5nF Inverting Gain</text>
+  <text x="305" y="330" class="text-metric">> 40 dB 50/60Hz Cancellation</text>
+
+  <!-- Connection to Sallen-Key Filter -->
+  <line x1="500" y1="180" x2="550" y2="180" class="line-accent" marker-end="url(#arrow)"/>
+  <text x="505" y="170" class="text-metric">IAOUT</text>
+
+  <!-- Block 3: Sallen-Key Low-Pass Filter -->
+  <rect x="550" y="120" width="200" height="240" fill="#1e293b" stroke="#10b981" class="box" />
+  <text x="565" y="150" class="text-block-title">40 Hz Sallen-Key LPF</text>
+  <text x="565" y="170" class="text-block-desc">2-Pole Butterworth Filter</text>
+  <rect x="565" y="185" width="170" height="85" rx="4" fill="#0f172a" stroke="#059669" stroke-width="1"/>
+  <text x="575" y="205" class="text-metric">fc = 33.6 Hz</text>
+  <text x="575" y="223" class="text-metric">R1=100kΩ, R2=100kΩ</text>
+  <text x="575" y="241" class="text-metric">C1=68nF, C2=33nF</text>
+  <text x="575" y="259" class="text-metric">Attenuation: -10dB @ 60Hz</text>
+
+  <rect x="565" y="280" width="170" height="60" rx="4" fill="#0f172a" stroke="#059669" stroke-width="1"/>
+  <text x="575" y="300" class="text-block-title" font-size="12px">Active Gain Stage</text>
+  <text x="575" y="318" class="text-metric">Av = 1 + 100k/10k = 11 V/V</text>
+  <text x="575" y="333" class="text-metric">Total System Gain = 1100 V/V</text>
+
+  <!-- Connection to Arduino Shield Header -->
+  <line x1="750" y1="200" x2="790" y2="200" class="line-accent" marker-end="url(#arrow)"/>
+  <text x="752" y="190" class="text-metric">ECG_OUT</text>
+
+  <!-- Block 4: Arduino Interface & Output -->
+  <rect x="790" y="120" width="130" height="240" fill="#1e293b" stroke="#8b5cf6" class="box" />
+  <text x="805" y="150" class="text-block-title">Arduino Uno</text>
+  <text x="805" y="170" class="text-block-desc">• A0: ECG Analog</text>
+  <text x="805" y="190" class="text-block-desc">• D10: LOD+</text>
+  <text x="805" y="210" class="text-block-desc">• D11: LOD-</text>
+  <text x="805" y="230" class="text-block-desc">• D9: FastRestore</text>
+  <text x="805" y="250" class="text-block-desc">• D8: Shutdown</text>
+
+  <rect x="800" y="270" width="110" height="75" rx="4" fill="#0f172a" stroke="#7c3aed" stroke-width="1"/>
+  <text x="808" y="290" class="text-metric">Indicators:</text>
+  <text x="808" y="308" fill="#22c55e" class="text-metric">● Green: PWR</text>
+  <text x="808" y="324" fill="#eab308" class="text-metric">● Yellow: LOD</text>
+  <text x="808" y="340" fill="#ef4444" class="text-metric">● Red: BEAT</text>
+
+  <!-- Power & Reference Bar at Bottom -->
+  <rect x="40" y="390" width="880" height="70" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="60" y="415" class="text-block-title">Power Architecture &amp; Analog Virtual Ground</text>
+  <text x="60" y="438" class="text-block-desc">5V Host Rail → AP2112K-3.3 Ultra-Low-Noise LDO (3.3V Rail) → Resistor Divider (100k/100k) → Internal Buffer → REFOUT = 1.65V Virtual Ground</text>
+  <text x="60" y="452" class="text-metric">Isolated AGND / DGND Star-Grounding Topology ensures zero digital switching hash enters the microvolt biopotential signal</text>
+</svg>

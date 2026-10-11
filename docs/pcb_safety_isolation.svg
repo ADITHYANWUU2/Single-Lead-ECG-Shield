@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 480" width="950" height="480">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .text-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: bold; fill: #f8fafc; }
+      .text-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .label-head { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; font-weight: bold; fill: #f1f5f9; }
+      .label-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #cbd5e1; }
+      .code { font-family: 'Courier New', monospace; font-size: 12px; fill: #38bdf8; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="950" height="480" rx="12" />
+
+  <!-- Title -->
+  <text x="40" y="45" class="text-title">PCB Safety Isolation Barrier &amp; Analog Routing Strategy</text>
+  <text x="40" y="70" class="text-sub">Physical Implementation of IEC 60601-1 Creepage Clearance, Star-Grounding, and High-Impedance Guard Ringing</text>
+
+  <!-- Board Outline Representation -->
+  <rect x="50" y="100" width="850" height="340" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+
+  <!-- Left: Patient Section -->
+  <rect x="70" y="120" width="200" height="300" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="90" y="145" class="label-head" fill="#60a5fa">PATIENT ENCLOSURE ZONE</text>
+  <text x="90" y="170" class="label-desc">• 3.5mm Medical TRRS Jack</text>
+  <text x="90" y="190" class="label-desc">• 3-Pin Snap Electrode Header</text>
+  <text x="90" y="215" class="label-desc">• High-Voltage 180kΩ Resistors</text>
+  <text x="90" y="235" class="label-desc">  (Limits fault current &lt; 10 µA)</text>
+  <text x="90" y="260" class="label-desc">• BAV199 Dual TVS Clamp Diodes</text>
+  <text x="90" y="280" class="label-desc">• 470pF Differential Filter Caps</text>
+  
+  <rect x="90" y="320" width="160" height="70" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+  <text x="100" y="345" class="code">Floating Patient GND</text>
+  <text x="100" y="365" class="label-desc">Isolated from MCU Logic</text>
+
+  <!-- ISOLATION MILLING SLOT -->
+  <rect x="290" y="110" width="24" height="320" rx="12" fill="#ef4444" opacity="0.25" stroke="#ef4444" stroke-width="2"/>
+  <text x="302" y="270" transform="rotate(-90 302,270)" font-family="'Segoe UI', sans-serif" font-size="12px" font-weight="bold" fill="#f87171" text-anchor="middle">MILLED ISOLATION SLOT (4.0mm CREEPAGE CLEARANCE)</text>
+
+  <!-- Right: Analog Front End + Shield Logic -->
+  <rect x="334" y="120" width="546" height="300" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="354" y="145" class="label-head" fill="#34d399">ANALOG &amp; MCU SHIELD DOMAIN</text>
+
+  <!-- Sub-block: AD8232 & Guard Ring -->
+  <rect x="354" y="170" width="240" height="150" rx="6" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="370" y="195" class="label-head" fill="#22d3ee">AD8232 &amp; Active Filters</text>
+  <rect x="370" y="210" width="208" height="35" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="380" y="232" class="code" fill="#fbbf24">Guard Ring: REFOUT Driven</text>
+  <text x="370" y="265" class="label-desc">• Prevents pA surface leakage</text>
+  <text x="370" y="285" class="label-desc">• Sallen-Key 40Hz Butterworth network</text>
+  <text x="370" y="305" class="label-desc">• Short, direct analog differential tracks</text>
+
+  <!-- Sub-block: Grounding Architecture -->
+  <rect x="614" y="170" width="246" height="150" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="630" y="195" class="label-head" fill="#a78bfa">Star-Ground Architecture</text>
+  <text x="630" y="220" class="label-desc">• Solid Bottom Copper AGND Plane</text>
+  <text x="630" y="240" class="label-desc">• Split Digital Ground (DGND) for MCU</text>
+  <rect x="630" y="255" width="214" height="45" rx="4" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="640" y="275" class="code">Single Net-Tie Star Point</text>
+  <text x="640" y="292" class="label-desc">Zero ground loop coupling</text>
+
+  <!-- Bottom Header Pins row -->
+  <rect x="354" y="340" width="506" height="60" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="370" y="365" class="label-head" font-size="12px">Standard Arduino Uno R3 Shield Headers</text>
+  <text x="370" y="385" class="label-desc">A0: Filtered ECG Out | D8: SDN | D9: Fast Restore | D10: LOD+ | D11: LOD- | 5V / 3.3V / GND</text>
+</svg>
